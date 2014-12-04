@@ -1,0 +1,23 @@
+{
+  "name": "pledgr",
+  "version": "0.0.0",
+  "description": "charitable giving, simplified",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/warring-hail/greenfield.git"
+  },
+  "keywords": [
+    "charitable giving"
+  ],
+  "author": "warring-hail",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/warring-hail/greenfield/issues"
+  },
+  "homepage": "https://github.com/warring-hail/greenfield"
+}
