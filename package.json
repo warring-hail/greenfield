@@ -21,6 +21,9 @@
   },
   "homepage": "https://github.com/warring-hail/greenfield",
   "dependencies": {
-    "express": "^4.10.4"
+    "body-parser": "^1.10.0",
+    "express": "^4.10.4",
+    "mongoose": "^3.8.20",
+    "nodemon": "^1.2.1"
   }
 }
