@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/warring-hail/greenfield/issues"
   },
-  "homepage": "https://github.com/warring-hail/greenfield"
+  "homepage": "https://github.com/warring-hail/greenfield",
+  "dependencies": {
+    "express": "^4.10.4"
+  }
 }
