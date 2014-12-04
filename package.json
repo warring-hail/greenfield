@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/warring-hail/greenfield",
   "dependencies": {
+    "dotenv": "^0.4.0",
     "express": "^4.10.4"
   }
 }
