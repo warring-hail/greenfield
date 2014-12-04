@@ -1,6 +1,6 @@
 // var morgan = require('morgan'); // used for logging incoming request
 var bodyParser = require('body-parser');
-// var helpers = require('./helpers.js'); // our custom middleware
+var helpers = require('./helpers.js'); // our custom middleware
 
 
 module.exports = function (app, express) {
@@ -19,10 +19,8 @@ module.exports = function (app, express) {
   app.use('/api/users', userRouter); // use user router for all user requests
   app.use('/api/charities', charityRouter); // user charity router for charity requests
 
-  // // authentication middleware used to decode token and made available on the request
-  // //app.use('/api/links', helpers.decode);
-  // app.use(helpers.errorLogger);
-  // app.use(helpers.errorHandler);
+  app.use(helpers.errorLogger);
+  app.use(helpers.errorHandler);
 
   // inject our routers into their respective route files
   require('../users/userRoutes.js')(userRouter);
