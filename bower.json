@@ -1,0 +1,23 @@
+{
+  "name": "pledgr",
+  "main": "index.js",
+  "version": "0.0.0",
+  "homepage": "https://github.com/warring-hail/greenfield",
+  "authors": [
+    "warring-hail"
+  ],
+  "description": "charitable giving, simplified",
+  "keywords": [
+    "charitable giving"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "client/bower_components",
+  ],
+  "dependencies": {
+    "angular": "~1.3.5"
+  }
+}
