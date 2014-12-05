@@ -1,10 +1,14 @@
 require('dotenv').load();
-
+var AuthCodeModel = require('./authCodeModel');
 var client = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
 
 var generateCode = function(userPhone) {
     var code = Math.floor(Math.random()*90000) + 10000;
-    // Save code and number in database
+    var codeModel = new AuthCodeModel.AuthCode({ phone: userPhone, code: code });
+    codeModel.save(function(err,codeModel) {
+        if(err) throw err;
+        console.log("code saved");
+    });
     return code;
 };
 
@@ -13,8 +17,6 @@ module.exports = {
         var userPhone = req.body.phone;
         var code = generateCode(userPhone);
 
-        console.log("SID",process.env.TWILIO_SID);
-        console.log("AUTH TOKEN", process.env.TWILIO_AUTH_TOKEN);
         client.sendMessage({
             to:'+1'+userPhone, // Any number Twilio can deliver to
             from: '+16508259600', // A number you bought from Twilio and can use for outbound communication
@@ -22,19 +24,24 @@ module.exports = {
         }, function(err, responseData) { //this function is executed when a response is received from Twilio
             if(err) throw err;
             if(!err) {
-                console.log(responseData.from);
-                console.log(responseData.body);
+                console.log("Message sent",responseData.body);
             }
         });
 
     },
     verifyCode: function(req, res) {
         var userPhone = req.body.phone;
-        var userCode = req.body.code;
+        var code = req.body.code;
+        console.log("USERPHONE",userPhone);
+        console.log("CODE",code);
+        AuthCodeModel.AuthCode.find({ phone: userPhone, code: code }, function(err,data) {
+            if(err) return console.error(err);
+            if(data.length === 0) {
 
-        // Lookup code in database by userPhone
-        // If it's the correct code, send a response 201
-        // If it's not, return false, if it's not send a 404
+            }
+            console.log("Record",data);
+
+        });
     }
 }
 
