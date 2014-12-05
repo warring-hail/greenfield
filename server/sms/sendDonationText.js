@@ -6,21 +6,40 @@
   // Send the text
   // On success of sending the text, save the message to the db
 var client = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
-Q = require('q');
+var mongoose = require('mongoose');
+var SentMessage = require('./sentMessagesModel');
+var User = require('../users/userModel');
+var Charity = require('../charities/charityModel.js');
 
-var identifyUsersToText = function() {
+var getUsers = function(next) {
+  // FOR TESTING ONLY
+  // var bob = new User({username: 'bob', phone: 4159330023, password: 123});
+  // var tina = new User({username: 'tina', phone: 4159330023, password: 123});
+  // tina.save(function(err) { if(err) console.log(err) });
 
+  // Select user phone numbers and save them to an array of arrays
+  User.find({},function(err, data) {
+    if (err) {
+      console.log("Error fetching users");
+    } else {
+      console.log(data);
+      // next(users);
+    }
+  });
 }
 
-var getOrganizations = function() {
-
+var getOrganizations = function(users, next) {
+  // Select blurb and id for all orgs in the database and put them in an array
 }
 
-var prepareMessageBody = function() {
-
+var prepareMessageBody = function(users, next) {
+  // For each record in the getUsers array
+  // Push three random indices of getOrganizations to the user array
+  // Generate the message body in the array
 }
 
-var sendSms = function(userPhone, messageBody, callback) {
+var sendSms = function(users, next) {
+  // For each item in the array, send a message
   client.sendMessage({
       to: '+1' + userPhone,
       from: '+16508259600',
@@ -34,10 +53,11 @@ var sendSms = function(userPhone, messageBody, callback) {
     });
 }
 
-var saveMessage = function() {
+var saveMessage = function(users, next) {
+  // For each item in the array, save the message to the db
 
 }
 
 module.exports = {
-  sendDonationText = sendDonationText
-}
+  getUsers: getUsers
+};
