@@ -4,14 +4,19 @@
     <meta charset="UTF-8">
     <title></title>
     <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
-<script type="text/javascript">
+<script>
 
 var sendCode = function() {
   var phone = $("#phone").val();
   $.ajax({
     type: "POST",
-    url: "/api/sms/verify/send",
+    url: "/api/sms/send",
     data: {phone:phone},
+    success: function(data) {
+      if(data.sent === false) {
+        alert("Error sending message.  Please try again later.")
+      }
+    }
   });
 };
 
@@ -22,6 +27,13 @@ var verifyCode = function() {
     type: "POST",
     url: "/api/sms/verify",
     data: {phone:phone, code:code},
+    success: function(data) {
+      if(data.found === true) {
+        console.log("Code found");
+      } else {
+        console.log("Code not found");
+      }
+    }
   });
 
 };
@@ -33,9 +45,9 @@ var verifyCode = function() {
   <h3>Verify your phone number</h3>
   <p>Enter your number and we'll text you a verification code.</p>
   Phone: <input type="text" id="phone" name="phone" /><br />
-  <button onClick"sendCode()">Send code</button>
+  <button onClick="sendCode()">Send code</button>
   <p>Enter code:</p>
-  <input type="text" name="code" /><br />
+  <input type="text" id="code" name="code" /><br />
   <button onClick="verifyCode()" type="submit">Verify</button>
 </body>
 </html>
