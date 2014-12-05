@@ -1,0 +1,8 @@
+{
+  "preset": "google",
+  "disallowMultipleVarDecl": "exceptUndefined",
+  "disallowQuotedKeysInObjects": true,
+  "disallowSpacesInsideObjectBrackets": "nested",
+  "maximumLineLength": 120,
+  "requireSpacesInsideObjectBrackets": "all"
+}
