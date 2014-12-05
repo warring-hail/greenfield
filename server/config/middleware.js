@@ -8,7 +8,6 @@ module.exports = function (app, express) {
   var userRouter = express.Router();
   var charityRouter = express.Router();
   var smsRouter = express.Router();
-  var signup = express.Router();
 
   // app.use(morgan('dev'));
   app.use(bodyParser.urlencoded({extended: true}));
@@ -24,6 +23,9 @@ module.exports = function (app, express) {
 
   // inject our routers into their respective route files
   require('../users/userRoutes.js')(userRouter);
-  // require('../charities/charityRoutes.js')(charityRouter);
+  require('../charities/charityRoutes.js')(charityRouter);
   // require('../sms/smsRoutes.js')(smsRouter);
 };
+
+
+
