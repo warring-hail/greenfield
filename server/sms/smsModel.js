@@ -6,26 +6,21 @@ var SentMessagesSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  choice1: {
+  1: {
     type: String,
     required: true
   },
-  choice2: {
+  2: {
     type: String,
     required: true
   },
-  choice3: {
-    type: String,
-    required: true
-  },
-  messageBody: {
+  3: {
     type: String,
     required: true
   }
 });
 
 var SentMessages = mongoose.model('SentMessages', SentMessagesSchema);
-
 
 var DonationsSchema = new mongoose.Schema({
   phone: {
