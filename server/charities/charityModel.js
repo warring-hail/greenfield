@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var CharitySchema = new mongoose.Schema({
-  charity_name: {
+  charityName: {
     type: String,
     required: true,
     unique: true

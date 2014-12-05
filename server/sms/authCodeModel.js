@@ -14,5 +14,5 @@ var AuthCodeSchema = new mongoose.Schema({
 var AuthCode = mongoose.model('AuthCode', AuthCodeSchema);
 
 module.exports = {
-  AuthCode: AuthCode,
-}
+  AuthCode: AuthCode
+};
