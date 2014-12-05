@@ -22,6 +22,24 @@ var UserCurrentChoicesSchema = new mongoose.Schema({
 
 var UserCurrentChoices = mongoose.model('UserCurrentChoices', UserCurrentChoicesSchema);
 
+var DonationsSchema = new mongoose.Schema({
+  phone: {
+    type: String,
+    required: true
+  },
+  charity: {
+    type: String,
+    required: true
+  },
+  amount: {
+    type: Number,
+    required: true
+  },
+});
+
+var Donations = mongoose.model('Donations', DonationsSchema);
+
 module.exports = {
-  UserCurrentChoices: UserCurrentChoices
+  UserCurrentChoices: UserCurrentChoices,
+  Donations: Donations
 };
