@@ -1,5 +1,9 @@
 require('dotenv').load();
 var AuthCodeModel = require('./authCodeModel');
+
+var SmsModel = require('./smsModel');
+var UserModel = require('../users/userModel');
+
 var client = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
 
 // Generate a random authentication code and save it in the db
@@ -14,9 +18,33 @@ var generateCode = function(userPhone) {
 
 module.exports = {
   // Receive the user's choice and process the donation
-  // smsReceiver: function(req, res) {
-  //     var userChoice = req.body.Body;
-  //   },
+  smsReceiver: function(req, res) {
+    if (req.method === 'POST') {
+      // Store the user's choice from the POST request sent by Twilio
+      var userChoice = req.body.Body;
+      // console.log('text body: ', userChoice);
+      // Query the user choices collection with the phone number that sent the response
+      SmsModel.UserCurrentChoices.find({phone: req.body.From}, function(err, data) {
+        if (err) {return console.error(err);}
+        // If the returned object has a property for what the user returned
+        if (data[userChoice]) {
+          var chosenCharity = data[userChoice];
+          // Query the User collection to find out how much they want to donate
+          UserModel.find({phone: data.phone}, function(err, data) {
+            // Create a new donation in the donations collection
+            var donation = new SmsModel.Donations({phone: data.phone, charity: chosenCharity, amount: data.weekly});
+            // Save the donation to the collection
+            donation.save(function(err) {
+              if (err) { throw err; }
+            });
+            res.status(201).send();
+          });
+        } else {
+          res.status(500).send();
+        }
+      });
+    }
+  },
   // Send an auth code to the user
   sendVerification: function(req, res) {
     var userPhone = req.body.phone;
