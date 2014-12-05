@@ -35,7 +35,6 @@ module.exports = {
         res.status(204).send({ sent: true });
       }
     });
-
   },
   // Check to see if the verification code exists in the DB
   verifyCode: function(req, res) {
