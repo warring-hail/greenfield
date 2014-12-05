@@ -24,4 +24,4 @@ var UserCurrentChoices = mongoose.model('UserCurrentChoices', UserCurrentChoices
 
 module.exports = {
   UserCurrentChoices: UserCurrentChoices
-}
+};
