@@ -1,0 +1,44 @@
+<div id='container'>
+  <div>
+    <h1>Create an account</h1>
+  </div>
+  <div>
+    <form>
+      <div class="nameContainer">
+        <label for="firstName">Name</label>
+        <input type="text" name="firstName" value="First">
+        <input type="text" name="lastName" value="Last">
+      </div>
+      <div class="usrnameContainer">
+        <label for="userName">User name</label>
+        <input type="email" name="userName" value="username@example.com">
+      </div>
+      <div class="pwdContainer">
+        <label for="password">Create password</label>
+        <input type="password" name="password">
+        <p>8-character minimum; case sensitive</p>
+      </div>
+      <div class="phoneContainer">
+        <label for="telephone">Telephone number</label>
+        <input type="tel" name="telephone" value="+1(xxx)-xxx-xxxx">
+      </div>
+      <div class="gender">
+        <label for="gender">Gender</label>
+        <select id="gender" name="gender">
+            <option selected="selected" value="">Select...</option>
+            <option value="m">Male</option>
+            <option value="f">Female</option>
+            <option value="u">Not specified</option>
+        </select>
+      </div>
+      <div class="verifyContainer">
+        <label for="verify">Verificaiton Code</label>
+        <input type="text" name="verify">
+        <p><a href='#'>Get SMS verification code</a></p>
+      </div>
+      <div id="createAccount">
+        <input type="submit" value="Create account">
+      </div>
+    </form>
+  </div>
+</div>
