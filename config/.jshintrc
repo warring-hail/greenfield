@@ -25,5 +25,7 @@
     "eqnull": true,
     "esnext": true,
 
-    "node": true
+    "node": true,
+
+    "predef": ["angular"]
 }
