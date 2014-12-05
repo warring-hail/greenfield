@@ -27,5 +27,12 @@
     "mongoose": "^3.8.20",
     "nodemon": "^1.2.1",
     "twilio": "~1.9.0"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-jscs": "^1.0.0",
+    "jshint-stylish": "^1.0.0",
+    "load-grunt-tasks": "^1.0.0"
   }
 }

@@ -1,17 +1,15 @@
 // var morgan = require('morgan'); // used for logging incoming request
 var bodyParser = require('body-parser');
-var helpers = require('./helpers.js'); // our custom middleware
+var helpers = require('./helpers'); // our custom middleware
 
-
-module.exports = function (app, express) {
+module.exports = function(app, express) {
 
   var userRouter = express.Router();
   var charityRouter = express.Router();
   var smsRouter = express.Router();
-  var signup = express.Router();
 
   // app.use(morgan('dev'));
-  app.use(bodyParser.urlencoded({extended: true}));
+  app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
   app.use(express.static(__dirname + '/../../client'));
 
@@ -24,6 +22,6 @@ module.exports = function (app, express) {
 
   // inject our routers into their respective route files
   require('../users/userRoutes.js')(userRouter);
-  // require('../charities/charityRoutes.js')(charityRouter);
   require('../sms/smsRoutes.js')(smsRouter);
+  require('../charities/charityRoutes.js')(charityRouter);
 };
