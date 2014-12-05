@@ -3,7 +3,8 @@ angular.module('pledgr', [
   'pledgr.signup',
   'ui.router'
 ])
-.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+.config(function($stateProvider, $urlRouterProvider) {
+//.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
   $urlRouterProvider.otherwise('/');
 
   $stateProvider

@@ -6,7 +6,7 @@ module.exports = {
     console.error(error.stack);
     next(error);
   },
-  errorHandler: function(error, req, res, next) {
+  errorHandler: function(error, req, res) {
     // send error message to client
     // message for gracefull error handling on app
     res.send(500, { error: error.message });

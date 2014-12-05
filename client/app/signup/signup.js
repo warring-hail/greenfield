@@ -1,5 +1,5 @@
 angular.module('pledgr.signup', [])
 
-.controller('SignupController', function ($scope) {
+.controller('SignupController', function() {
 
 });
