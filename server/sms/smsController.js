@@ -1,5 +1,6 @@
 require('dotenv').load();
 var AuthCodeModel = require('./authCodeModel');
+var SmsModel = require('./smsModel');
 var client = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
 
 // Generate a random authentication code and save it in the db
@@ -13,6 +14,10 @@ var generateCode = function(userPhone) {
 };
 
 module.exports = {
+  // Receive the user's choice and process the donation
+  // smsReceiver: function(req, res) {
+  //     var userChoice = req.body.Body;
+  //   },
   // Send an auth code to the user
   sendVerification: function(req, res) {
     var userPhone = req.body.phone;
