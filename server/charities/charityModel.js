@@ -5,7 +5,7 @@ var CharitySchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true
-  },
+  }
 });
 
 module.exports = mongoose.model('Charity', CharitySchema);
