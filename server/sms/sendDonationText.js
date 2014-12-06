@@ -1,63 +1,107 @@
-// Select all the users who are due for a text
-  // Select those users for whom today-last message date = the desired duration
-// For each user in the list, select the id and a random assortment of organizations blurb field
-// For each record returned
-  // Prepare the message body
-  // Send the text
-  // On success of sending the text, save the message to the db
 var client = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
 var mongoose = require('mongoose');
+var _ = require('underscore');
 var SentMessage = require('./sentMessagesModel');
 var User = require('../users/userModel');
 var Charity = require('../charities/charityModel.js');
 
+// Select all users from the DB
 var getUsers = function(next) {
-  // FOR TESTING ONLY
-  // var bob = new User({username: 'bob', phone: 4159330023, password: 123});
-  // var tina = new User({username: 'tina', phone: 4159330023, password: 123});
-  // tina.save(function(err) { if(err) console.log(err) });
-
-  // Select user phone numbers and save them to an array of arrays
+  next = next || getCharities;
   User.find({},function(err, data) {
     if (err) {
       console.log("Error fetching users");
     } else {
-      console.log(data);
-      // next(users);
+      next(data);
     }
   });
 }
 
-var getOrganizations = function(users, next) {
-  // Select blurb and id for all orgs in the database and put them in an array
-}
-
-var prepareMessageBody = function(users, next) {
-  // For each record in the getUsers array
-  // Push three random indices of getOrganizations to the user array
-  // Generate the message body in the array
-}
-
-var sendSms = function(users, next) {
-  // For each item in the array, send a message
-  client.sendMessage({
-      to: '+1' + userPhone,
-      from: '+16508259600',
-      body: messageBody
-    }, function(err) {
-      if (err) {
-        console.log(err);
-      } else {
-        callback();
+// Generate indices for three random charities
+var generateRandomIndices = function(min, max) {
+  var randoms = [];
+  while (randoms.length < 3) {
+    var index = Math.floor(Math.random() * (max - min + 1)) + min;
+    if (!_.contains(randoms,index)) {
+      randoms.push(index);
     }
-    });
+  }
+  return randoms;
 }
 
-var saveMessage = function(users, next) {
-  // For each item in the array, save the message to the db
+// Get all charities from the DB
+var getCharities = function(users, next) {
+  next = next || prepareMessageBody;
 
+  Charity.find({},function(err, data) {
+    if (err) {
+      console.log("Error fetching charities");
+    } else {
+      next(users,data);
+    }
+  });
+};
+
+// Prepare a message for each user based on random indicies
+var prepareMessageBody = function(users,charities,next) {
+  var next = next || sendSms;
+  var messages = [];
+
+  for (var i=0; i<users.length; i++) {
+    var randomIndices = generateRandomIndices(0,charities.length-1);
+    var messageBody = "Pledgr - decide who to help this week:\n";
+    var choice1 = charities[randomIndices[0]];
+    var choice2 = charities[randomIndices[1]];
+    var choice3 = charities[randomIndices[2]];
+
+    var messageContent = {
+      phone: users[i].phone,
+      choice1: choice1.id,
+      choice2: choice2.id,
+      choice3: choice3.id,
+      messageBody: messageBody +=
+        "1. "+choice1.charityName+"\n"
+        +"2. "+choice2.charityName+"\n"
+        +"3. "+choice3.charityName+"\n"
+    };
+
+    messages.push(messageContent);
+    messageBody = "";
+  }
+
+  next(messages);
+}
+
+// Text users with their message
+var sendSms = function(messages, next) {
+  var next = next || saveMessage;
+
+  for (var i=0; i<messages.length; i++) {
+    client.sendMessage({
+        to: '+1' + messages[i].phone,
+        from: '+16508259600',
+        body: messages[i].messageBody
+      }, function(err) {
+        if (err) {
+          console.log(err);
+        } else {
+          next(messages);
+      }
+    });
+  }
+}
+
+// For each item in the array, save the message to the db
+var saveMessage = function(messages, next) {
+  for (var i=0; i<messages.length; i++) {
+    var message = new SentMessage(messages[i]);
+    message.save(function(err) {
+      if (err) throw err;
+    });
+  }
 }
 
 module.exports = {
-  getUsers: getUsers
+  getUsers: getUsers,
+  getCharities: getCharities
 };
