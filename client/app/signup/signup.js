@@ -24,40 +24,40 @@ angular.module('pledgr.signup', [])
   };
 
   $scope.signup = function(){
-  	console.log('form submitted')
-    window.alert("form submitted");
+  	console.log('form submitted');
+    alert('form submitted');
   };
 
   $scope.sendCode = function(){
-  	var phone = $scope.user.phone
-  	console.log(phone)
+  	var phone = $scope.user.phone;
+  	console.log(phone);
   	//need to refactor for ANGULAR
   	$.ajax({
-  	  type: "POST",
-      url: "/api/sms/send",
+  	  type: 'POST',
+      url: '/api/sms/send',
       data: {phone:phone},
       success: function(data) {
       	if(data.sent === false) {
-      	  alert("Error sending message.  Please try again later.")
+      	  alert('Error sending message.  Please try again later.');
         }
       }
     });
   };
  
   $scope.verifyCode = function() {
-   var phone = $scope.user.phone
-   console.log(phone)
-   var code = $scope.user.code
-   console.log(code)
+   var phone = $scope.user.phone;
+   console.log(phone);
+   var code = $scope.user.code;
+   console.log(code);
     $.ajax({
-      type: "POST",
-      url: "/api/sms/verify",
+      type: 'POST',
+      url: '/api/sms/verify',
       data: {phone:phone, code:code},
       success: function(data) {
         if(data.found === true) {
-          console.log("Code found");
+          console.log('Code found');
         } else {
-          console.log("Code not found");
+          console.log('Code not found');
         }
       }
     });
