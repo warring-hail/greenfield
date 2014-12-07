@@ -1,7 +1,7 @@
 angular.module('pledgr', [
   'pledgr.charities',
-  'pledgr.index',
   'pledgr.factories',
+  'pledgr.home',
   'pledgr.signup',
   'ui.router'
 ])
@@ -10,10 +10,10 @@ angular.module('pledgr', [
   $urlRouterProvider.otherwise('/');
 
   $stateProvider
-    .state('index', {
+    .state('home', {
       url: '/',
-      templateUrl: 'app/index/index.html',
-      controller: 'IndexController'
+      templateUrl: 'app/home/home.html',
+      controller: 'HomeController'
     })
     .state('signup', {
       url: '/signup',
