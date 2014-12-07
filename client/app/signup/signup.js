@@ -1,6 +1,61 @@
 angular.module('pledgr.signup', [])
 
-.controller('SignupController', function ($scope, $window, $location) {
+.factory('Auth', function ($http){
+  var signup = function(data){
+    console.log(data);
+    return $http({
+      method: 'POST',
+      url: '/api/users/singup',
+      data: data
+    })
+    .then(function (resp){
+      return resp.data;
+    });
+  };
+
+  return {
+    signup: signup
+  };
+})
+
+.factory('SMS', function ($http){
+  var sendCode = function(data){
+    console.log(data);
+    return $http({
+      method: 'POST',
+      url: '/api/sms/send',
+      data: data
+    })
+    .then(function (resp){
+      if (resp.data.sent === false) {
+        alert('Error sending message.  Please try again later.');
+      };
+    });
+  };
+
+  var verifyCode = function(data){
+    console.log(data);
+    return $http({
+      method: 'POST',
+      url: '/api/sms/verify',
+      data: data
+    })
+    .then(function (resp){
+      if(resp.data.found === true) {
+        console.log('Code found');
+      } else {
+        console.log('Code not found');
+      };
+    });
+  };
+
+  return {
+    sendCode: sendCode,
+    verifyCode: verifyCode
+  };
+})
+
+.controller('SignupController', function ($scope, $window, $location, Auth, SMS){
   $scope.user = {
     first:'First',
     last:'Last',
@@ -24,42 +79,22 @@ angular.module('pledgr.signup', [])
   };
 
   $scope.signup = function(){
-  	console.log('form submitted');
-    alert('form submitted');
+    Auth.signup($scope.user);
   };
 
   $scope.sendCode = function(){
-  	var phone = $scope.user.phone;
-  	console.log(phone);
-  	//need to refactor for ANGULAR
-  	$.ajax({
-  	  type: 'POST',
-      url: '/api/sms/send',
-      data: {phone:phone},
-      success: function(data) {
-      	if(data.sent === false) {
-      	  alert('Error sending message.  Please try again later.');
-        }
-      }
+    var phone = $scope.user.phone.match(/\d/g).join('');
+    SMS.sendCode({
+      phone: phone
     });
   };
- 
-  $scope.verifyCode = function() {
-   var phone = $scope.user.phone;
-   console.log(phone);
-   var code = $scope.user.code;
-   console.log(code);
-    $.ajax({
-      type: 'POST',
-      url: '/api/sms/verify',
-      data: {phone:phone, code:code},
-      success: function(data) {
-        if(data.found === true) {
-          console.log('Code found');
-        } else {
-          console.log('Code not found');
-        }
-      }
+
+  $scope.verifyCode = function(){
+    var phone = $scope.user.phone.match(/\d/g).join('');
+    SMS.verifyCode({
+      phone: phone,
+      code: $scope.user.code
     });
   };
 });
+
