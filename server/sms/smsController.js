@@ -1,6 +1,5 @@
 require('dotenv').load();
 var AuthCodeModel = require('./authCodeModel');
-var SmsModel = require('./smsModel');
 var client = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
 
 // Generate a random authentication code and save it in the db
@@ -35,7 +34,6 @@ module.exports = {
         res.status(204).send({ sent: true });
       }
     });
-
   },
   // Check to see if the verification code exists in the DB
   verifyCode: function(req, res) {
