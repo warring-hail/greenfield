@@ -1,6 +1,6 @@
 angular.module('pledgr.signup', [])
 
-.controller('SignupController', function ($scope, $window, $location) {
+.controller('SignupController', function ($scope) {
   $scope.user = {
     first:'First',
     last:'Last',
@@ -43,7 +43,7 @@ angular.module('pledgr.signup', [])
       }
     });
   };
- 
+
   $scope.verifyCode = function() {
    var phone = $scope.user.phone;
    console.log(phone);

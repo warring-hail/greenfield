@@ -4,16 +4,16 @@ var Charity = require('../charities/charityModel');
 
 var scrapeOrgid = function(orgid) {
   var url = 'http://www.charitynavigator.org/index.cfm?bay=search.summary&orgid=' + orgid;
-  request(url, function (error, response, html) {
+  request(url, function(error, response, html) {
     if (!error) {
       var $ = cheerio.load(html);
-      var json = {orgid: orgid};
+      var json = { orgid: orgid };
 
       json.name = $('.charityname').html();
 
       var address = $('.rating p:nth-child(1)').html();
       if (address) {
-        address.split('<br>').forEach(function (string) {
+        address.split('<br>').forEach(function(string) {
           var location = string.split('&#xA0;');
           if (location.length > 1) {
             var city = location[0].trim();
@@ -28,7 +28,7 @@ var scrapeOrgid = function(orgid) {
       json.rating = $('.rating table table tr:nth-child(2) td:nth-child(2)').html();
 
       var metrics = {};
-      $('.glossary').parent().parent().each(function (index, elem) {
+      $('.glossary').parent().parent().each(function(index, elem) {
         if (index < 10) {
           var $elem = $(elem);
           var metric = $elem.find('a').text();
@@ -47,7 +47,7 @@ var scrapeOrgid = function(orgid) {
         json.subCategory = fullCategory.slice(delimiterIndex + 1).trim();
       }
       var charity = new Charity(json);
-      charity.save(function (error) {
+      charity.save(function(error) {
         if (error) {
           console.log(error);
         }
@@ -57,7 +57,7 @@ var scrapeOrgid = function(orgid) {
 };
 
 module.exports = {
-  scrape: function (req, res) {
+  scrape: function(req, res) {
     var urlParts = req.url.split('/');
     var count = parseInt(urlParts[1], 10) || 100;
     var start = parseInt(urlParts[2], 10) || 3601;

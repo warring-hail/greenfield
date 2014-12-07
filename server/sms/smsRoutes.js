@@ -1,4 +1,4 @@
-var smsController = require('./smsController.js');
+var smsController = require('./smsController');
 
 module.exports = function(app) {
   app.post('/send', smsController.sendVerification);
