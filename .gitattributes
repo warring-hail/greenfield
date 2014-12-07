@@ -1,0 +1,18 @@
+* text=auto
+
+# These files are text and should be normalized (Convert crlf => lf)
+*.css text
+*.env text
+*.html text
+*.js text
+*.json text
+*.md text
+*.sh text
+*.yml text
+.bowerrc text
+.deployment text
+.editorconfig text
+.htaccess text
+.jscrc text
+.jshintrc text
+LICENSE text
