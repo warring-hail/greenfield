@@ -1,3 +1,44 @@
-body {
-  
+html {
+  height: 100%;
 }
+
+body {
+  height: 100%;
+}
+
+h1.logo {
+  padding-left: 20px;
+}
+
+h2 {
+  font-size: 50px;
+}
+
+.home {
+  height:100%;
+  display:table;
+  width: 100%;
+  padding: 0;
+}
+
+.ctaRow {
+  height: 100%;
+  display:table-cell;
+  vertical-align: middle;
+}
+
+.cta {
+  text-align: center;
+  float:none;
+  margin:0 auto;
+  height: 500px;
+}
+
+.cta h1 {
+  font-size: 50px;
+  text-align: center;
+}
+  .cta button {
+    margin-top: 15px;
+    font-weight: bold;
+  }
