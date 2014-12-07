@@ -1,7 +1,7 @@
 require('dotenv').load();
 var AuthCodeModel = require('./authCodeModel');
 
-var SmsModel = require('./smsModel');
+var SmsModel = require('./sentMessagesModel');
 var UserModel = require('../users/userModel');
 
 var client = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);

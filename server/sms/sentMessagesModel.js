@@ -24,7 +24,7 @@ var SentMessagesSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('SentMessages', SentMessagesSchema);
+var SentMessages = mongoose.model('SentMessages', SentMessagesSchema);
 
 
 var DonationsSchema = new mongoose.Schema({
@@ -45,6 +45,6 @@ var DonationsSchema = new mongoose.Schema({
 var Donations = mongoose.model('Donations', DonationsSchema);
 
 module.exports = {
-  UserCurrentChoices: UserCurrentChoices,
+  SentMessages: SentMessages,
   Donations: Donations
 };
