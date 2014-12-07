@@ -24,7 +24,7 @@ module.exports = {
       var userChoice = req.body.Body;
       console.log('text body: ', userChoice);
       // Query the user choices collection with the phone number that sent the response
-      SmsModel.UserCurrentChoices.find({phone: req.body.From}, function(err, data) {
+      SmsModel.SentMessages.find({phone: req.body.From}, function(err, data) {
         if (err) {return console.error(err);}
         // If the returned object has a property for what the user returned
         if (data[userChoice]) {
