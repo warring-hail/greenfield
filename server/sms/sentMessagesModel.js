@@ -25,4 +25,3 @@ var SentMessagesSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('SentMessages', SentMessagesSchema);
-
