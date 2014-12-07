@@ -1,6 +1,5 @@
 require('dotenv').load();
 var AuthCodeModel = require('./authCodeModel');
-
 var SmsModel = require('./sentMessagesModel');
 var UserModel = require('../users/userModel');
 
