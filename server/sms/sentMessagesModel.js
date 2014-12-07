@@ -1,27 +1,28 @@
 var mongoose = require('mongoose');
 
 // New schema for sms messages sent to users
-var UserCurrentChoicesSchema = new mongoose.Schema({
+var SentMessagesSchema = new mongoose.Schema({
   phone: {
     type: String,
     required: true
   },
-  1: {
+  choice1: {
     type: String,
     required: true
   },
-  2: {
+  choice2: {
     type: String,
     required: true
   },
-  3: {
+  choice3: {
+    type: String,
+    required: true
+  },
+  messageBody: {
     type: String,
     required: true
   }
 });
 
-var UserCurrentChoices = mongoose.model('UserCurrentChoices', UserCurrentChoicesSchema);
+module.exports = mongoose.model('SentMessages', SentMessagesSchema);
 
-module.exports = {
-  UserCurrentChoices: UserCurrentChoices
-};
