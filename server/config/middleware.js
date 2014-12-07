@@ -22,6 +22,6 @@ module.exports = function(app, express) {
 
   // inject our routers into their respective route files
   require('../users/userRoutes.js')(userRouter);
+  require('../sms/smsRoutes.js')(smsRouter);
   require('../charities/charityRoutes.js')(charityRouter);
-  // require('../sms/smsRoutes.js')(smsRouter);
 };
