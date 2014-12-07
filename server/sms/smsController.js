@@ -20,7 +20,7 @@ module.exports = {
     if (req.method === 'POST') {
       // Store the user's choice from the POST request sent by Twilio
       var userChoice = req.body.Body;
-      // console.log('text body: ', userChoice);
+      console.log('text body: ', userChoice);
       // Query the user choices collection with the phone number that sent the response
       SmsModel.UserCurrentChoices.find({phone: req.body.From}, function(err, data) {
         if (err) {return console.error(err);}
@@ -38,7 +38,7 @@ module.exports = {
             res.status(201).send();
           });
         } else {
-          res.status(500).send();
+          res.status(500).send({});
         }
       });
     }
