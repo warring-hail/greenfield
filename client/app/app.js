@@ -1,6 +1,7 @@
 angular.module('pledgr', [
   'pledgr.charities',
   'pledgr.index',
+  'pledgr.factories',
   'pledgr.signup',
   'ui.router'
 ])

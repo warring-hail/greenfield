@@ -1,6 +1,6 @@
-//var User = require('./userModel');
-    // Q    = require('q'),
-    // jwt  = require('jwt-simple');
+var User = require('./userModel');
+var Q = require('q');
+var jwt  = require('jwt-simple');
 
 module.exports = {
   // signin: function (req, res, next) {
@@ -29,38 +29,33 @@ module.exports = {
   //     });
   // },
 
-  // signup: function (req, res, next) {
-  //   var username  = req.body.username,
-  //       password  = req.body.password,
-  //       create,
-  //       newUser;
+  signup: function(req, res, next) {
+    var newUser = req.body;
+    var username = newUser.username;
+    //parse phone number
+    newUser.phone = newUser.phone.match(/\d/g).join('');
 
-  //   var findOne = Q.nbind(User.findOne, User);
-
-  //   // check to see if user already exists
-  //   findOne({username: username})
-  //     .then(function(user) {
-  //       if (user) {
-  //         next(new Error('User already exist!'));
-  //       } else {
-  //         // make a new user if not one
-  //         create = Q.nbind(User.create, User);
-  //         newUser = {
-  //           username: username,
-  //           password: password
-  //         };
-  //         return create(newUser);
-  //       }
-  //     })
-  //     .then(function (user) {
-  //       // create token to send back for auth
-  //       var token = jwt.encode(user, 'secret');
-  //       res.json({token: token});
-  //     })
-  //     .fail(function (error) {
-  //       next(error);
-  //     });
-  // },
+    var findOne = Q.nbind(User.findOne, User);
+    // check to see if user already exists
+    findOne({ username: username })
+      .then(function(user) {
+        if (user) {
+          next(new Error('User already exist!'));
+        } else {
+          // make a new user if not one
+          var create = Q.nbind(User.create, User);
+          return create(newUser);
+        }
+      })
+      .then(function(user) {
+        // create token to send back for auth
+        var token = jwt.encode(user, 'secret');
+        res.json({ token: token });
+      })
+      .fail(function(error) {
+        next(error);
+      });
+  }
 
   // checkAuth: function (req, res, next) {
   //   // checking to see if the user is authenticated
