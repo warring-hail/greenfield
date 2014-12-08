@@ -9,7 +9,7 @@ angular.module('pledgr.signup', [])
       data: data
     })
     .then(function (resp) {
-        return resp.data;
+      return resp.data.token;
     });
   };
 
@@ -55,22 +55,22 @@ angular.module('pledgr.signup', [])
   };
 })
 
-.controller('SignupController', function ($scope, Auth, SMS){
+.controller('SignupController', function ($scope, $window, Auth, SMS){
   $scope.user = {
     first:'First',
     last:'Last',
     username: 'username@example.com',
-    pwd: '',
+    password: '',
     male: false,
     female: false,
     animals: false,
-    ACH: false,
+    arts: false,
     education: false,
-    evironment: false,
+    environment: false,
     health: false,
-    HS: false,
+    humanService: false,
     international: false,
-    PB: false,
+    publicBenefit: false,
     religion: false,
     local: false,
     phone: '(111)111-1111',
@@ -80,6 +80,13 @@ angular.module('pledgr.signup', [])
 
   $scope.signup = function(){
     Auth.signup($scope.user)
+    .then(function (token) {
+        $window.localStorage.setItem('token', token);
+        // $location.path('/homepage');
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
   };
 
   $scope.sendCode = function(){

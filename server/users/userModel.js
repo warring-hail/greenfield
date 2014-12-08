@@ -14,7 +14,23 @@ var UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  salt: String
+  first: String,
+  last: String,
+  male: Boolean,
+  female: Boolean,
+  animals: Boolean,
+  arts: Boolean,
+  education: Boolean,
+  evironment: Boolean,
+  health: Boolean,
+  humanService: Boolean,
+  international: Boolean,
+  publicBenefit: Boolean,
+  religion: Boolean,
+  local: Boolean,
+  phone: String,
+  code: String,
+  pledge: Number
 });
 
 // UserSchema.methods.comparePasswords = function (candidatePassword) {
