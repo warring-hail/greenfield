@@ -1,21 +1,21 @@
 angular.module('pledgr.signup', [])
 
-.controller('SignupController', function ($scope) {
+.controller('SignupController', function($scope, $window, Auth, SMS) {
   $scope.user = {
     first:'First',
     last:'Last',
     username: 'username@example.com',
-    pwd: '',
+    password: '',
     male: false,
     female: false,
     animals: false,
-    ACH: false,
+    arts: false,
     education: false,
-    evironment: false,
+    environment: false,
     health: false,
-    HS: false,
+    humanService: false,
     international: false,
-    PB: false,
+    publicBenefit: false,
     religion: false,
     local: false,
     phone: '(111)111-1111',
@@ -23,43 +23,29 @@ angular.module('pledgr.signup', [])
     pledge: 100.00
   };
 
-  $scope.signup = function(){
-  	console.log('form submitted');
-    alert('form submitted');
+  $scope.signup = function() {
+    Auth.signup($scope.user)
+    .then(function(token) {
+        $window.localStorage.setItem('token', token);
+        // $location.path('/homepage');
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
   };
 
-  $scope.sendCode = function(){
-  	var phone = $scope.user.phone;
-  	console.log(phone);
-  	//need to refactor for ANGULAR
-  	$.ajax({
-  	  type: 'POST',
-      url: '/api/sms/send',
-      data: {phone:phone},
-      success: function(data) {
-      	if(data.sent === false) {
-      	  alert('Error sending message.  Please try again later.');
-        }
-      }
+  $scope.sendCode = function() {
+    var phone = $scope.user.phone.match(/\d/g).join('');
+    SMS.sendCode({
+      phone: phone
     });
   };
 
   $scope.verifyCode = function() {
-   var phone = $scope.user.phone;
-   console.log(phone);
-   var code = $scope.user.code;
-   console.log(code);
-    $.ajax({
-      type: 'POST',
-      url: '/api/sms/verify',
-      data: {phone:phone, code:code},
-      success: function(data) {
-        if(data.found === true) {
-          console.log('Code found');
-        } else {
-          console.log('Code not found');
-        }
-      }
+    var phone = $scope.user.phone.match(/\d/g).join('');
+    SMS.verifyCode({
+      phone: phone,
+      code: $scope.user.code
     });
   };
 });

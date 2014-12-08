@@ -1,5 +1,6 @@
 angular.module('pledgr', [
   'pledgr.index',
+  'pledgr.factories',
   'pledgr.signup',
   'ui.router'
 ])
