@@ -1,6 +1,6 @@
 var request = require('request');
 var cheerio = require('cheerio');
-var Charity = require('../charities/charityModel');
+var Charity = require('../charity/charityModel');
 
 var scrapeOrgid = function(orgid) {
   var url = 'http://www.charitynavigator.org/index.cfm?bay=search.summary&orgid=' + orgid;
