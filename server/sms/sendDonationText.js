@@ -2,7 +2,7 @@ var client = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_AUTH_T
 var _ = require('underscore');
 var SentMessage = require('./sentMessagesModel');
 var User = require('../users/userModel');
-var Charity = require('../charities/charityModel');
+var Charity = require('../charity/charityModel');
 
 // For each item in the array, save the message to the db
 var saveMessage = function(messages, next) {
@@ -117,9 +117,11 @@ var getCharities = function(users, next) {
 };
 
 // Select all users from the DB
-var getUsers = function(next) {
+var getUsers = function(queryData, next) {
   next = next || getCharities;
-  User.find({}, function(err, data) {
+  queryData = queryData || {};
+
+  User.find(queryData, function(err, data) {
     if (err) {
       console.log('Error fetching users');
     } else {
