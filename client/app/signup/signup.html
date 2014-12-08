@@ -27,7 +27,7 @@
       <div class="pwdContainer">
         <!-- password input form -->
         <label for="password">Create password</label>
-        <input type="password" name="password" ng-model="user.pwd" ng-minlength="6" required>
+        <input type="password" name="password" ng-model="user.password" ng-minlength="6" required>
         <p>6-character minimum; case sensitive</p>
         <!-- password validation -->
         <p ng-show="signupForm.password.$error.minlength">Password too short</p>
@@ -43,13 +43,13 @@
         <h3>Select your charity preferences </h3>
         <label for="preference">Categories</label>
         <input type="checkbox" name="preference" ng-model="user.animals">Animals<br>
-        <input type="checkbox" name="preference" ng-model="user.ACH">Arts, Culture, Humanities<br>
+        <input type="checkbox" name="preference" ng-model="user.arts">Arts, Culture, Humanities<br>
         <input type="checkbox" name="preference" ng-model="user.education">Education<br>
         <input type="checkbox" name="preference" ng-model="user.environment">Environment<br>
         <input type="checkbox" name="preference" ng-model="user.health">Health<br>
-        <input type="checkbox" name="preference" ng-model="user.HS">Human Services<br>
+        <input type="checkbox" name="preference" ng-model="user.humanService">Human Services<br>
         <input type="checkbox" name="preference" ng-model="user.international">International<br>
-        <input type="checkbox" name="preference" ng-model="user.PB">Public Benefit<br>
+        <input type="checkbox" name="preference" ng-model="user.publicBenefit">Public Benefit<br>
         <input type="checkbox" name="preference" ng-model="user.religion">Religion<br>
       </div>
       <div>
