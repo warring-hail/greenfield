@@ -1,6 +1,6 @@
-//var userController = require('./userController');
+var userController = require('./userController');
 
-module.exports = function() {
+module.exports = function(app) {
   // app === userRouter injected from middleware.js
 
   // app.post('/signin', userController.signin);

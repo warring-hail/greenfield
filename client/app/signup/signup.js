@@ -28,7 +28,7 @@ angular.module('pledgr.signup', [])
     })
     .then(function (resp){
       if (resp.data.sent === false) {
-        alert('Error sending message.  Please try again later.');
+        console.error('Error sending message.  Please try again later.');
       };
     });
   };
