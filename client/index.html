@@ -1,24 +1,35 @@
 <!DOCTYPE html>
 <html ng-app="pledgr">
 <head lang="en">
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="styles/style.css" />
-    <title>pledgr</title>
-</head>
-<body>
-  <!-- page title -->
-  <h1>pledgr</h1>
-  <!-- the div where all templates will be loaded -->
-  <div ui-view></div>
-  <!-- scripts -->
+ <title>pledgr</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="styles/style.css" />
   <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
-
   <script src="app/app.js"></script>
-  <script src="app/index/index.js"></script>
+  <script src="app/home/home.js"></script>
   <script src="app/signup/signup.js"></script>
   <script src="app/charities/charities.js"></script>
   <script src="app/factories/factories.js"></script>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-4">
+        <h1 class="logo">pledgr</h1>
+      </div>
+      <div class="col-sm-8 nav">
+        <a ui-sref="signin" class="btn btn-default navbar-btn">Sign in</a>
+      </div>
+    </div>
+    <!-- the div where all templates will be loaded -->
+    <div ui-view class="row uiContainer">
+      
+    </div>
+  </div>
 </body>
 </html>

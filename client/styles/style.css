@@ -1,3 +1,63 @@
-body {
-  
+html {
+  height: 100%;
+  width: 100%;
 }
+
+body {
+  height: 100%;
+  width: 100%;
+}
+
+h1.logo {
+  padding: 0 0 0 20px;
+  margin-top: 10px;
+}
+
+h2 {
+  font-size: 50px;
+}
+
+.nav {
+  text-align: right;
+  padding-right: 30px;
+  padding-top: 5px;
+}
+
+.home {
+  height:90%;
+  display:table;
+  width: 100%;
+  padding: 0;
+  background: url(../img/home-bg.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.cta {
+  text-align: center;
+  float:none;
+  margin:0 auto;
+  color: white;
+  display:table-cell;
+  vertical-align: middle;
+}
+
+  .cta h1 {
+    margin-top: 0;
+    font-size: 5em;
+    text-align: center;
+    color: white;
+    text-shadow: black 0.1em 0.1em 0.2em;
+    letter-spacing: .02em;
+  }
+  .cta h4 {
+    font-size: 1.7em;
+    letter-spacing: .04em;
+    text-shadow: black 0.1em 0.1em 0.2em;
+
+  }
+  .cta a {
+    margin-top: 15px;
+  }
