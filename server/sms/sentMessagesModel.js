@@ -26,7 +26,6 @@ var SentMessagesSchema = new mongoose.Schema({
 
 var SentMessages = mongoose.model('SentMessages', SentMessagesSchema);
 
-
 var DonationsSchema = new mongoose.Schema({
   phone: {
     type: String,
