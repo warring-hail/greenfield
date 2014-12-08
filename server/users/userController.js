@@ -1,4 +1,4 @@
-var User = require('./userModel.js');
+var User = require('./userModel');
 var Q = require('q');
 var jwt  = require('jwt-simple');
 
@@ -31,7 +31,6 @@ module.exports = {
 
   signup: function(req, res, next) {
     var newUser = req.body;
-    //get username
     var username = newUser.username;
     //parse phone number
     newUser.phone = newUser.phone.match(/\d/g).join('');
