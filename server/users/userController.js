@@ -1,6 +1,7 @@
 var User = require('./userModel');
 var Q = require('q');
 var jwt  = require('jwt-simple');
+var sendText = require('../sms/sendDonationText');
 
 module.exports = {
   // signin: function (req, res, next) {
@@ -33,7 +34,7 @@ module.exports = {
     var newUser = req.body;
     var username = newUser.username;
     //parse phone number
-    newUser.phone = newUser.phone.match(/\d/g).join('');
+    var phone = newUser.phone = newUser.phone.match(/\d/g).join('');
 
     var findOne = Q.nbind(User.findOne, User);
     // check to see if user already exists
@@ -46,6 +47,9 @@ module.exports = {
           var create = Q.nbind(User.create, User);
           return create(newUser);
         }
+      })
+      .then(function(user){
+        sendText.getUsers({phone: phone});
       })
       .then(function(user) {
         // create token to send back for auth
