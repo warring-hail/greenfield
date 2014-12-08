@@ -1,14 +1,14 @@
 angular.module('pledgr.signup', [])
 
-.factory('Auth', function ($http){
-  var signup = function(data){
+.factory('Auth', function($http) {
+  var signup = function(data) {
     console.log(data);
     return $http({
       method: 'POST',
       url: '/api/users/signup',
       data: data
     })
-    .then(function (resp) {
+    .then(function(resp) {
       return resp.data.token;
     });
   };
@@ -18,34 +18,34 @@ angular.module('pledgr.signup', [])
   };
 })
 
-.factory('SMS', function ($http){
-  var sendCode = function(data){
+.factory('SMS', function($http) {
+  var sendCode = function(data) {
     console.log(data);
     return $http({
       method: 'POST',
       url: '/api/sms/send',
       data: data
     })
-    .then(function (resp){
+    .then(function(resp) {
       if (resp.data.sent === false) {
         console.error('Error sending message.  Please try again later.');
-      };
+      }
     });
   };
 
-  var verifyCode = function(data){
+  var verifyCode = function(data) {
     console.log(data);
     return $http({
       method: 'POST',
       url: '/api/sms/verify',
       data: data
     })
-    .then(function (resp){
-      if(resp.data.found === true) {
+    .then(function(resp) {
+      if (resp.data.found === true) {
         console.log('Code found');
       } else {
         console.log('Code not found');
-      };
+      }
     });
   };
 
@@ -55,7 +55,7 @@ angular.module('pledgr.signup', [])
   };
 })
 
-.controller('SignupController', function ($scope, $window, Auth, SMS){
+.controller('SignupController', function($scope, $window, Auth, SMS) {
   $scope.user = {
     first:'First',
     last:'Last',
@@ -78,25 +78,25 @@ angular.module('pledgr.signup', [])
     pledge: 100.00
   };
 
-  $scope.signup = function(){
+  $scope.signup = function() {
     Auth.signup($scope.user)
-    .then(function (token) {
+    .then(function(token) {
         $window.localStorage.setItem('token', token);
         // $location.path('/homepage');
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.error(error);
       });
   };
 
-  $scope.sendCode = function(){
+  $scope.sendCode = function() {
     var phone = $scope.user.phone.match(/\d/g).join('');
     SMS.sendCode({
       phone: phone
     });
   };
 
-  $scope.verifyCode = function(){
+  $scope.verifyCode = function() {
     var phone = $scope.user.phone.match(/\d/g).join('');
     SMS.verifyCode({
       phone: phone,
@@ -104,4 +104,3 @@ angular.module('pledgr.signup', [])
     });
   };
 });
-

@@ -31,7 +31,10 @@ var UserSchema = new mongoose.Schema({
   phone: String,
   code: String,
   pledge: Number,
-  joinDate : { type : Date, default: Date.now }
+  joinDate : {
+    type: Date,
+    default: Date.now
+  }
 });
 
 // UserSchema.methods.comparePasswords = function (candidatePassword) {

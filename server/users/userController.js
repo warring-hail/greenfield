@@ -29,16 +29,16 @@ module.exports = {
   //     });
   // },
 
-  signup: function (req, res, next) {
+  signup: function(req, res, next) {
     var newUser = req.body;
     //get username
     var username = newUser.username;
     //parse phone number
-    newUser['phone'] = newUser.phone.match(/\d/g).join('');
-    
+    newUser.phone = newUser.phone.match(/\d/g).join('');
+
     var findOne = Q.nbind(User.findOne, User);
     // check to see if user already exists
-    findOne({username: username})
+    findOne({ username: username })
       .then(function(user) {
         if (user) {
           next(new Error('User already exist!'));
@@ -48,12 +48,12 @@ module.exports = {
           return create(newUser);
         }
       })
-      .then(function (user) {
+      .then(function(user) {
         // create token to send back for auth
         var token = jwt.encode(user, 'secret');
-        res.json({token: token});
+        res.json({ token: token });
       })
-      .fail(function (error) {
+      .fail(function(error) {
         next(error);
       });
   }
