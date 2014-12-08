@@ -6,7 +6,7 @@ var Charity = require('../charities/charityModel');
 
 // For each item in the array, save the message to the db
 var saveMessage = function(messages, next) {
-  next = next || function(){};
+  next = next || function() {};
 
   messages.forEach(function(message) {
     var sentMessage = new SentMessage(message);
@@ -24,10 +24,11 @@ var sendSms = function(messages, next) {
   next = next || saveMessage;
 
   messages.forEach(function(message) {
-    client.sendMessage({
-      to: '+1' + message.phone,
-      from: '+16508259600',
-      body: message.messageBody
+    client.sendMessage(
+      {
+        to: '+1' + message.phone,
+        from: '+16508259600',
+        body: message.messageBody
       },
       function(err) {
         if (err) {
@@ -35,7 +36,8 @@ var sendSms = function(messages, next) {
         } else {
           next(messages);
         }
-    });
+      }
+    );
   });
 };
 
@@ -44,34 +46,48 @@ var generateRandomIndices = function(min, max) {
   var randoms = [];
   while (randoms.length < 3) {
     var index = Math.floor(Math.random() * (max - min + 1)) + min;
-    if (!_.contains(randoms,index)) {
+    if (!_.contains(randoms, index)) {
       randoms.push(index);
     }
   }
   return randoms;
 };
 
+// Trim charity name length if it's too long
+var shortenString = function(string) {
+  if (string.length > 25) {
+    string = string.substring(0, string.length);
+    string += '...';
+  }
+  return string;
+};
+
 // Prepare a message for each user based on random indicies
-var prepareMessageBody = function(users,charities,next) {
+var prepareMessageBody = function(users, charities, next) {
   next = next || sendSms;
   var messages = [];
 
-  for (var i=0; i<users.length; i++) {
-    var randomIndices = generateRandomIndices(0,charities.length-1);
+  for (var i = 0; i < users.length; i++) {
+    var randomIndices = generateRandomIndices(0, charities.length - 1);
     var messageBody = 'Pledgr - decide who to help this week:\n';
     var choice1 = charities[randomIndices[0]];
     var choice2 = charities[randomIndices[1]];
     var choice3 = charities[randomIndices[2]];
+    var link = 'http://pledgr.azurewebsites.net/charities/';
+    link += choice1.orgid + '/' + choice2.orgid + '/' + choice3.orgid;
+
+    /*jshint multistr: true */
+    messageBody += '1. ' + shortenString(choice1.name.toString()) + '\n';
+    messageBody += '2. ' + shortenString(choice2.name.toString()) + '\n';
+    messageBody += '3. ' + shortenString(choice3.name.toString()) + '\n';
+    messageBody += 'Reply with (1/3) to donate or visit ' + link;
 
     var messageContent = {
       phone: users[i].phone,
-      choice1: choice1.id,
-      choice2: choice2.id,
-      choice3: choice3.id,
-      /*jshint multistr: true */
-      messageBody: messageBody += '1. '+choice1.charityName+'\n\
-      2. '+choice2.charityName+'\n\
-      3. '+choice3.charityName+'\n'
+      choice1: choice1.orgid,
+      choice2: choice2.orgid,
+      choice3: choice3.orgid,
+      messageBody: messageBody
     };
 
     messages.push(messageContent);
@@ -85,19 +101,25 @@ var prepareMessageBody = function(users,charities,next) {
 var getCharities = function(users, next) {
   next = next || prepareMessageBody;
 
-  Charity.find({},function(err, data) {
-    if (err) {
-      console.log('Error fetching charities');
-    } else {
-      next(users,data);
+  Charity.find(
+    {
+      name : {
+        $ne : null
+      }
+    }, function(err, data) {
+      if (err) {
+        console.log('Error fetching charities');
+      } else {
+        next(users, data);
+      }
     }
-  });
+  );
 };
 
 // Select all users from the DB
 var getUsers = function(next) {
   next = next || getCharities;
-  User.find({},function(err, data) {
+  User.find({}, function(err, data) {
     if (err) {
       console.log('Error fetching users');
     } else {
@@ -105,8 +127,6 @@ var getUsers = function(next) {
     }
   });
 };
-
-
 
 module.exports = {
   getUsers: getUsers,
