@@ -1,4 +1,5 @@
 angular.module('pledgr', [
+  'pledgr.charities',
   'pledgr.index',
   'pledgr.signup',
   'ui.router'
@@ -8,27 +9,21 @@ angular.module('pledgr', [
   $urlRouterProvider.otherwise('/');
 
   $stateProvider
-
     .state('index', {
       url: '/',
       templateUrl: 'app/index/index.html',
       controller: 'IndexController'
     })
-    // .state('signin', {
-    //   url: '/signin',
-    //   templateUrl: 'app/auth/signin.html',
-    //   controller: 'AuthController'
-    // })
     .state('signup', {
       url: '/signup',
       templateUrl: 'app/signup/signup.html',
       controller: 'SignupController'
+    })
+    .state('charities', {
+       url: '/charities/{c1:[0-9]+}/{c2:[0-9]+}/{c3:[0-9]+}',
+       templateUrl: 'app/charities/charities.html',
+       controller: 'CharitiesController'
     });
-    // .state('charities', {
-    //   url: '/charities',
-    //   templateUrl: 'app/charities/charities.html',
-    //   controller: 'CharitiesController'
-    // });
 
     // $httpProvider.interceptors.push('AttachTokens');
 });
