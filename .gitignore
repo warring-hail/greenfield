@@ -1,5 +1,8 @@
 .env
 
+### OSX ###
+.DS_Store
+
 ### node etc ###
 
 # Logs
