@@ -1,6 +1,6 @@
-var charityController = require('./charityController.js');
+//var charityController = require('./charityController');
 
-module.exports = function(app) {
+module.exports = function() {
 
 	//add get/post request handlers using the controller functions
 

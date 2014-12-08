@@ -23,8 +23,8 @@ module.exports = function(app, express) {
   app.use(helpers.errorHandler);
 
   // inject our routers into their respective route files
-  require('../users/userRoutes.js')(userRouter);
-  require('../sms/smsRoutes.js')(smsRouter);
-  require('../charities/charityRoutes.js')(charityRouter);
-  require('../scraper/scraperRoutes.js')(scraperRouter);
+  require('../users/userRoutes')(userRouter);
+  require('../sms/smsRoutes')(smsRouter);
+  require('../charities/charityRoutes')(charityRouter);
+  require('../scraper/scraperRoutes')(scraperRouter);
 };
