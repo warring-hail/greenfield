@@ -49,7 +49,7 @@ module.exports = {
             donation.save(function(err) {
               if (err) { throw err; }
               else {
-                CharityModel.find({orgid: chosenCharityId}, function(err, data) {
+                CharityModel.findOne({orgid: chosenCharityId}, function(err, data) {
                   client.sendMessage({
                     to: '+1' + userPhone,
                     from: '+16508259600',
@@ -57,9 +57,6 @@ module.exports = {
                   }, function(err) {
                     if (err) {
                       console.log(err);
-                      res.status(500).send();
-                    } else {
-                      res.status(204).send();
                     }
                   });
                 });
