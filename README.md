@@ -1,4 +1,5 @@
 # pledgr
+[![Build Status](https://travis-ci.org/warring-hail/greenfield.png)](https://travis-ci.org/warring-hail/greenfield)
 
 Charitable giving, simplified.
 
