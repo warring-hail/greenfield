@@ -7,6 +7,7 @@ module.exports = function(app, express) {
   var userRouter = express.Router();
   var charityRouter = express.Router();
   var smsRouter = express.Router();
+  var scraperRouter = express.Router();
 
   // app.use(morgan('dev'));
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -16,6 +17,7 @@ module.exports = function(app, express) {
   app.use('/api/sms', smsRouter); // use sms router for all sms requests
   app.use('/api/users', userRouter); // use user router for all user requests
   app.use('/api/charities', charityRouter); // user charity router for charity requests
+  app.use('/scraper', scraperRouter);
 
   app.use(helpers.errorLogger);
   app.use(helpers.errorHandler);
@@ -24,4 +26,5 @@ module.exports = function(app, express) {
   require('../users/userRoutes.js')(userRouter);
   require('../sms/smsRoutes.js')(smsRouter);
   require('../charities/charityRoutes.js')(charityRouter);
+  require('../scraper/scraperRoutes.js')(scraperRouter);
 };
