@@ -5,11 +5,11 @@ angular.module('pledgr.signup', [])
     console.log(data);
     return $http({
       method: 'POST',
-      url: '/api/users/singup',
+      url: '/api/users/signup',
       data: data
     })
-    .then(function (resp){
-      return resp.data;
+    .then(function (resp) {
+        return resp.data;
     });
   };
 
@@ -55,7 +55,7 @@ angular.module('pledgr.signup', [])
   };
 })
 
-.controller('SignupController', function ($scope, $window, $location, Auth, SMS){
+.controller('SignupController', function ($scope, Auth, SMS){
   $scope.user = {
     first:'First',
     last:'Last',
@@ -79,7 +79,7 @@ angular.module('pledgr.signup', [])
   };
 
   $scope.signup = function(){
-    Auth.signup($scope.user);
+    Auth.signup($scope.user)
   };
 
   $scope.sendCode = function(){
