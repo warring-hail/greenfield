@@ -12,7 +12,6 @@ module.exports = {
       },
       {},
       function(error, entry) {
-        console.log('error', error, 'entry', entry);
         if (error) {
           helpers.errorHandler(error, req, res);
         } else {
