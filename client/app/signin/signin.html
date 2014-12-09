@@ -1,0 +1,15 @@
+<div id='signin'>
+  <div>
+    <h1>Sign In</h1>
+  </div>
+  <form name="signinForm" ng-submit='signin()' novalidate>
+    <label> Username </label>
+    <input type='email' name='username' ng-model='user.username' required>
+    <p ng-show="signinForm.username.$invalid">Please enter your email address in the format someone@example.com.</p>
+    <label> Password </label>
+    <input type="password" name='password' ng-model='user.password' required>
+    <p ng-show="signinForm.username.$invalid">Please enter your password.</p>
+    <button ng-disabled="signinForm.$invalid">Sign in</button>
+  </form>
+  <a ui-sref="signup">Don't have an account? <strong>Signup Today!</strong></a>
+</div>

@@ -13,8 +13,21 @@ angular.module('pledgr.factories', [])
     });
   };
 
+  var signin = function(user) {
+    return $http({
+      method: 'POST',
+      url: '/api/users/signin',
+      data: user
+    })
+    .then(function(resp) {
+      return resp.data;
+      // return resp.data.token;
+    });
+  };
+
   return {
-    signup: signup
+    signup: signup,
+    signin: signin
   };
 })
 
@@ -27,9 +40,7 @@ angular.module('pledgr.factories', [])
       data: data
     })
     .then(function(resp) {
-      if (resp.data.sent === false) {
-        console.error('Error sending message.  Please try again later.');
-      }
+      return resp.data.sent;
     });
   };
 
@@ -41,11 +52,7 @@ angular.module('pledgr.factories', [])
       data: data
     })
     .then(function(resp) {
-      if (resp.data.found === true) {
-        console.log('Code found');
-      } else {
-        console.log('Code not found');
-      }
+      return resp.data.found;
     });
   };
 

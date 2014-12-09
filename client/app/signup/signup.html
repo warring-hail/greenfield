@@ -71,7 +71,7 @@
         <!-- verification code input -->
         <p>Please enter the verification code</p>
         <label for="verify">Verificaiton Code</label>
-        <input type="text" name="verify" ng-model="user.code" required>
+        <input id="verify" type="text" name="verify" ng-model="user.code" required>
         <!-- verification code validation -->
         <p ng-show="signupForm.verify.$invalid || signupForm.verify.$pristine">Enter verification code received via SMS</p>
         <button type="button"ng-click="verifyCode()" ng-disabled="signupForm.verify.$invalid">Verify Code</button>

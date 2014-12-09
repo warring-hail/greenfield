@@ -25,10 +25,10 @@ angular.module('pledgr.signup', [])
 
   $scope.signup = function() {
     Auth.signup($scope.user)
-    .then(function(token) {
-        $window.localStorage.setItem('token', token);
-        // $location.path('/homepage');
-      })
+    // .then(function(token) {
+    //     $window.localStorage.setItem('token', token);
+    //     // $location.path('/userhome');
+    //   })
       .catch(function(error) {
         console.error(error);
       });
@@ -38,6 +38,11 @@ angular.module('pledgr.signup', [])
     var phone = $scope.user.phone.match(/\d/g).join('');
     SMS.sendCode({
       phone: phone
+    })
+    .then(function(sent) {
+      if (!sent) {
+        console.error('Error sending message. Please try again later.');
+      }
     });
   };
 
@@ -46,6 +51,15 @@ angular.module('pledgr.signup', [])
     SMS.verifyCode({
       phone: phone,
       code: $scope.user.code
+    })
+    .then(function(found) {
+      if (found) {
+        console.log('Code found');
+      } else {
+        console.log('Code not found');
+        $('#verify').$invalid = true;
+
+      }
     });
   };
 });
