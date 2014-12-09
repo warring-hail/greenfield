@@ -10,19 +10,20 @@ module.exports = {
 
     var findUser = Q.nbind(User.findOne, User);
 
-    findUser({username: username})
+    findUser({ username: username })
       .then(function(user) {
         if (!user) {
           next(new Error('User does not exist'));
         } else {
-          findUser({password: password})
+          findUser({ password: password })
           .then(function(password) {
             if (!password) {
               next(new Error('password incorrect'));
             } else {
               var token = jwt.encode(user, 'secret');
-              res.json({token: token});
+              res.json({ token: token });
             }
+          });
           // return user.comparePasswords(password)
           //   .then(function(foundUser) {
           //     if (foundUser) {
@@ -34,7 +35,7 @@ module.exports = {
           //   });
         }
       })
-      .fail(function (error) {
+      .fail(function(error) {
         next(error);
       });
   },
@@ -57,8 +58,9 @@ module.exports = {
           return create(newUser);
         }
       })
-      .then(function(user){
-        sendText.getUsers({phone: phone});
+      .then(function() {
+      //send first text message after signup
+        sendText.getUsers({ phone: phone });
       })
       .then(function(user) {
         // create token to send back for auth

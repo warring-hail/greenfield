@@ -6,14 +6,14 @@ angular.module('pledgr.signin', [])
     password: 'Password'
   };
 
-  $scope.signin = function () {
+  $scope.signin = function() {
     Auth.signin($scope.user)
-      .then(function (token) {
+      .then(function(token) {
         $window.localStorage.setItem('token', token);
         // $location.path('/userhome');
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.error(error);
       });
   };
-};
+});

@@ -13,10 +13,6 @@ angular.module('pledgr.factories', [])
     });
   };
 
-  return {
-    signup: signup
-  };
-
   var signin = function(user) {
     return $http({
       method: 'POST',
@@ -26,6 +22,11 @@ angular.module('pledgr.factories', [])
     .then(function(resp) {
       return resp.data.token;
     });
+  };
+
+  return {
+    signup: signup,
+    signin: signin
   };
 })
 
