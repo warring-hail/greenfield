@@ -20,7 +20,7 @@ var scrapeOrgid = function(orgid) {
             city = city.substring(0, city.length - 1);
             json.city = city;
             json.state = location[1];
-            json.zip = location[2];
+            json.zip = location[2].trim();
           }
         });
       }
