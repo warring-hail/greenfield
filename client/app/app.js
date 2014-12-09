@@ -3,6 +3,7 @@ angular.module('pledgr', [
   'pledgr.factories',
   'pledgr.home',
   'pledgr.signup',
+  'pledgr.signin',
   'ui.router'
 ])
 .config(function($stateProvider, $urlRouterProvider) {
@@ -14,6 +15,11 @@ angular.module('pledgr', [
       url: '/',
       templateUrl: 'app/home/home.html',
       controller: 'HomeController'
+    })
+    .state('signin', {
+      url: '/signin',
+      templateUrl: 'app/signin/signin.html',
+      controller: 'SignInController'
     })
     .state('signup', {
       url: '/signup',

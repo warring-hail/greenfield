@@ -16,6 +16,17 @@ angular.module('pledgr.factories', [])
   return {
     signup: signup
   };
+
+  var signin = function(user) {
+    return $http({
+      method: 'POST',
+      url: '/api/users/signin',
+      data: user
+    })
+    .then(function(resp) {
+      return resp.data.token;
+    });
+  };
 })
 
 .factory('SMS', function($http) {
