@@ -22,7 +22,7 @@
             <p ng-show="signupForm.password.$error.minlength">Password too short</p>
       </div>
     </div>
-    <div class="preference panel panel-info">
+    <div class="panel panel-info">
       <div class="panel-heading">
       Choose the causes you want to support
       </div>
@@ -92,7 +92,7 @@
         <p ng-show="signupForm.pledge.$invalid || signupForm.pledge.$pristine">Please enter amount</p>
         <!-- create account submit button-->
         <p>Click <strong>Create account</strong> to sign up today!</p>
-        <button type="submit" class="btn btn-primary">Create account</button>
+        <button type="submit" ng-disabled='signupForm.$invalid' class="btn btn-primary">Create account</button>
     </div>
     </form>
   </div>
