@@ -1,10 +1,10 @@
 var client = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
 var _ = require('underscore');
-var SentMessage = require('./sentMessagesModel');
+var SmsModel = require('./sentMessagesModel');
 var User = require('../users/userModel');
 var Charity = require('../charity/charityModel');
 
-SentMessage = SentMessage.SentMessages;
+var SentMessage = SmsModel.SentMessages;
 
 // For each item in the array, save the message to the db
 var saveMessage = function(messages, next) {
