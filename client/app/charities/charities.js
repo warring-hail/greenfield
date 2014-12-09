@@ -17,45 +17,47 @@ angular.module('pledgr.charities', [])
   });
 
   $scope.makeChart = function(data) {
-    var metrics = data.metrics;
-    var program = parseFloat(metrics['Program Expenses']);
-    var administrative = parseFloat(metrics['Administrative Expenses']);
-    var fundraising = parseFloat(metrics['Fundraising Expenses']);
-    var id = '#' + data.orgid;
-    var charityExpensesChartDiv = '<div id=' + data.orgid + '></div>';
-    $('#highchart-container').append(charityExpensesChartDiv);
-    $(id).highcharts({
-      chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: 1,//null,
-        plotShadow: false
-      },
-      credits: false,
-      title: {
-        text: data.name
-      },
-      tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-      },
-      plotOptions: {
-        pie: {
-          allowPointSelect: true,
-          cursor: 'pointer',
-          dataLabels: {
-            enabled: true,
-            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+    if (data && data.metrics) {
+      var metrics = data.metrics;
+      var program = parseFloat(metrics['Program Expenses']);
+      var administrative = parseFloat(metrics['Administrative Expenses']);
+      var fundraising = parseFloat(metrics['Fundraising Expenses']);
+      var id = '#' + data.orgid;
+      var charityExpensesChartDiv = '<div id=' + data.orgid + '></div>';
+      $('#highchart-container').append(charityExpensesChartDiv);
+      $(id).highcharts({
+        chart: {
+          plotBackgroundColor: null,
+          plotBorderWidth: 1,//null,
+          plotShadow: false
+        },
+        credits: false,
+        title: {
+          text: data.name
+        },
+        tooltip: {
+          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+          pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+              enabled: true,
+              format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            }
           }
-        }
-      },
-      series: [{
-        type: 'pie',
-        name: 'Expenses',
-        data: [
-          ['Program', program],
-          ['Administrative', administrative],
-          ['Fundraising', fundraising]
-        ]
-      }]
-    });
+        },
+        series: [{
+          type: 'pie',
+          name: 'Expenses',
+          data: [
+            ['Program', program],
+            ['Administrative', administrative],
+            ['Fundraising', fundraising]
+          ]
+        }]
+      });
+    }
   };
 });

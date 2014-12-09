@@ -3,7 +3,8 @@ module.exports = function(grunt) {
     'index.js',
     'Gruntfile.js',
     'client/app/**/*.js',
-    'server/**/*.js'
+    'server/**/*.js',
+    'specs/**/*.js'
   ];
 
   grunt.initConfig({
