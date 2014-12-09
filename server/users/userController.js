@@ -44,7 +44,7 @@ module.exports = {
     var newUser = req.body;
     var username = newUser.username;
     //parse phone number
-    var phone = newUser.phone = newUser.phone.match(/\d/g).join('');
+    newUser.phone = newUser.phone.match(/\d/g).join('');
 
     var findOne = Q.nbind(User.findOne, User);
     // check to see if user already exists
@@ -53,20 +53,24 @@ module.exports = {
         if (user) {
           next(new Error('User already exist!'));
         } else {
+
           // make a new user if not one
           var create = Q.nbind(User.create, User);
           return create(newUser);
         }
       })
-      .then(function() {
-      //send first text message after signup
-        sendText.getUsers({ phone: phone });
-      })
       .then(function(user) {
-        // create token to send back for auth
-        var token = jwt.encode(user, 'secret');
-        res.json({ token: token });
+      //send first text message after signup
+        sendText.getUsers({ phone: user.phone });
       })
+      .then(function() {
+        res.status(201).end();
+      })
+      // .then(function(user) {
+      //   // create token to send back for auth
+      //   var token = jwt.encode(user, 'secret');
+      //   res.json({ token: token });
+      // })
       .fail(function(error) {
         next(error);
       });
