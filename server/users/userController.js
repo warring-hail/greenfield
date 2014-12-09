@@ -44,7 +44,7 @@ module.exports = {
     var newUser = req.body;
     var username = newUser.username;
     //parse phone number
-    var phone = newUser.phone = newUser.phone.match(/\d/g).join('');
+    newUser.phone = newUser.phone.match(/\d/g).join('');
 
     var findOne = Q.nbind(User.findOne, User);
     // check to see if user already exists

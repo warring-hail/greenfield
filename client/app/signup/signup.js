@@ -25,10 +25,10 @@ angular.module('pledgr.signup', [])
 
   $scope.signup = function() {
     Auth.signup($scope.user)
-    .then(function(token) {
-        $window.localStorage.setItem('token', token);
-        // $location.path('/userhome');
-      })
+    // .then(function(token) {
+    //     $window.localStorage.setItem('token', token);
+    //     // $location.path('/userhome');
+    //   })
       .catch(function(error) {
         console.error(error);
       });
