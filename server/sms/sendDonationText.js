@@ -4,6 +4,8 @@ var SentMessage = require('./sentMessagesModel');
 var User = require('../users/userModel');
 var Charity = require('../charity/charityModel');
 
+SentMessage = SentMessage.SentMessages;
+
 // For each item in the array, save the message to the db
 var saveMessage = function(messages, next) {
   next = next || function() {};
