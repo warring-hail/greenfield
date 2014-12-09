@@ -61,3 +61,21 @@ h2 {
   .cta a {
     margin-top: 15px;
   }
+
+.categories {
+  list-style: none;
+  padding-left: 0;
+}
+  .categories li.all {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+  }
+
+  .categories input {
+    margin-right: 7px;
+  }
+
+  .validatePhone {
+    padding-top: 10px;
+  }
