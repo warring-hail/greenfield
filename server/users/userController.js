@@ -53,20 +53,24 @@ module.exports = {
         if (user) {
           next(new Error('User already exist!'));
         } else {
+
           // make a new user if not one
           var create = Q.nbind(User.create, User);
           return create(newUser);
         }
       })
-      .then(function() {
-      //send first text message after signup
-        sendText.getUsers({ phone: phone });
-      })
       .then(function(user) {
-        // create token to send back for auth
-        var token = jwt.encode(user, 'secret');
-        res.json({ token: token });
+      //send first text message after signup
+        sendText.getUsers({ phone: user.phone });
       })
+      .then(function() {
+        res.status(201).end();
+      })
+      // .then(function(user) {
+      //   // create token to send back for auth
+      //   var token = jwt.encode(user, 'secret');
+      //   res.json({ token: token });
+      // })
       .fail(function(error) {
         next(error);
       });
