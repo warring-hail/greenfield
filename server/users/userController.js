@@ -1,39 +1,50 @@
 var User = require('./userModel');
 var Q = require('q');
 var jwt  = require('jwt-simple');
+var sendText = require('../sms/sendDonationText');
 
 module.exports = {
-  // signin: function (req, res, next) {
-  //   var username = req.body.username,
-  //       password = req.body.password;
+  signin: function(req, res, next) {
+    var username = req.body.username;
+    var password = req.body.password;
 
-  //   var findUser = Q.nbind(User.findOne, User);
-  //   findUser({username: username})
-  //     .then(function (user) {
-  //       if (!user) {
-  //         next(new Error('User does not exist'));
-  //       } else {
-  //         return user.comparePasswords(password)
-  //           .then(function(foundUser) {
-  //             if (foundUser) {
-  //               var token = jwt.encode(user, 'secret');
-  //               res.json({token: token});
-  //             } else {
-  //               return next(new Error('No user'));
-  //             }
-  //           });
-  //       }
-  //     })
-  //     .fail(function (error) {
-  //       next(error);
-  //     });
-  // },
+    var findUser = Q.nbind(User.findOne, User);
+
+    findUser({ username: username })
+      .then(function(user) {
+        if (!user) {
+          next(new Error('User does not exist'));
+        } else {
+          findUser({ password: password })
+          .then(function(password) {
+            if (!password) {
+              next(new Error('password incorrect'));
+            } else {
+              var token = jwt.encode(user, 'secret');
+              res.json({ token: token });
+            }
+          });
+          // return user.comparePasswords(password)
+          //   .then(function(foundUser) {
+          //     if (foundUser) {
+          //       var token = jwt.encode(user, 'secret');
+          //       res.json({token: token});
+          //     } else {
+          //       return next(new Error('No user'));
+          //     }
+          //   });
+        }
+      })
+      .fail(function(error) {
+        next(error);
+      });
+  },
 
   signup: function(req, res, next) {
     var newUser = req.body;
     var username = newUser.username;
     //parse phone number
-    newUser.phone = newUser.phone.match(/\d/g).join('');
+    var phone = newUser.phone = newUser.phone.match(/\d/g).join('');
 
     var findOne = Q.nbind(User.findOne, User);
     // check to see if user already exists
@@ -46,6 +57,10 @@ module.exports = {
           var create = Q.nbind(User.create, User);
           return create(newUser);
         }
+      })
+      .then(function() {
+      //send first text message after signup
+        sendText.getUsers({ phone: phone });
       })
       .then(function(user) {
         // create token to send back for auth

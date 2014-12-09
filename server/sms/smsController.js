@@ -83,7 +83,7 @@ module.exports = {
       body: 'Enter ' + code + ' on the signup page to verify your account.'
     }, function(err) {
       if (err) {
-        console.log(err);
+        console.error(err);
         res.status(500).send({ sent: false });
       } else {
         res.status(204).send({ sent: true });
